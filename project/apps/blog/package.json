@@ -74,6 +74,48 @@
             "buildTarget": "@project/blog:build:production"
           }
         }
+      },
+      "db:lint": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma validate --schema=./libs/blog/models/prisma/schema"
+        }
+      },
+      "db:format": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma format --schema=./libs/blog/models/prisma/schema"
+        }
+      },
+      "db:migrate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma migrate dev --schema=./libs/blog/models/prisma/schema --skip-generate --skip-seed"
+        }
+      },
+      "db:reset": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma migrate reset --schema=./libs/blog/models/prisma/schema --force --skip-generate --skip-seed"
+        }
+      },
+      "db:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx prisma generate --schema=./libs/blog/models/prisma/schema"
+        }
+      },
+      "db:seed": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx tsx libs/blog/models/prisma/seed.ts"
+        }
+      },
+      "db:fresh:seed": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "nx run @project/blog:db:reset && nx run @project/blog:db:seed"
+        }
       }
     }
   },

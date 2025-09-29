@@ -1,0 +1,49 @@
+model TextPost {
+  id           String @id @default(uuid())
+  title        String
+  text         String
+  announcement String
+  post         Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId       String @unique @map("post_id")
+
+  @@map("text_posts")
+}
+
+model VideoPost {
+  id       String @id @default(uuid())
+  title    String
+  videoUrl String @map("video_url")
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String @unique @map("post_id")
+
+  @@map("video_posts")
+}
+
+model QuotePost {
+  id          String @id @default(uuid())
+  quote       String
+  quoteAuthor String @map("quote_author")
+  post        Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId      String @unique @map("post_id")
+
+  @@map("quote_posts")
+}
+
+model PhotoPost {
+  id       String @id @default(uuid())
+  photoUrl String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String @unique @map("post_id")
+
+  @@map("photo_posts")
+}
+
+model LinkPost {
+  id          String @id @default(uuid())
+  url         String
+  description String
+  post        Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId      String @unique @map("post_id")
+
+  @@map("link_posts")
+}

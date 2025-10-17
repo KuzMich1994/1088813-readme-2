@@ -1,4 +1,22 @@
 import { Tag } from './tag.interface';
+import { Comment } from './comment.interface';
+import { Like } from './like.interface';
+import { Prisma } from '@prisma/client';
+
+export type PostWithIncludes = Prisma.PostGetPayload<{
+  include: {
+    tags: true;
+    comments: true;
+    photoPost: true;
+    videoPost: true;
+    linkPost: true;
+    quotePost: true;
+    textPost: true;
+    _count: {
+      select: { likes: true };
+    };
+  };
+}>;
 
 export enum PostType {
   Text = 'text',
@@ -16,13 +34,15 @@ export enum PostState {
 export interface BasePost {
   id?: string;
   tags?: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   state: PostState;
   originalPostId?: string;
   originalAuthorId?: string;
   repostCreatedAt?: Date;
   authorId: string;
+  comments?: Comment[];
+  likes?: Like[];
 }
 
 export interface TextPost extends BasePost {

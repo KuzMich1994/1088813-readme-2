@@ -1,7 +1,7 @@
 import { Tag } from '@project/types';
 import { Entity } from '@project/core';
 
-export class TagEntity implements Tag, Entity<string> {
+export class TagEntity implements Tag, Entity<string, Tag> {
   id?: string;
   name: string;
   createdAt: Date;
@@ -22,12 +22,16 @@ export class TagEntity implements Tag, Entity<string> {
     this.updatedAt = data.updatedAt;
   }
 
-  public toPOJO(): Record<string, unknown> {
+  public toPOJO(): Tag {
     return {
       id: this.id,
       name: this.name,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
+  }
+
+  static fromObject(data: Tag): TagEntity {
+    return new TagEntity(data);
   }
 }

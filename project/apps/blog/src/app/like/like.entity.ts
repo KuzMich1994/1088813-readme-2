@@ -1,7 +1,7 @@
 import { Like } from '@project/types';
 import { Entity } from '@project/core';
 
-export class LikeEntity implements Like, Entity<string> {
+export class LikeEntity implements Like, Entity<string, Like> {
   id?: string;
   userId: string;
   postId: string;
@@ -20,7 +20,7 @@ export class LikeEntity implements Like, Entity<string> {
     this.id = data.id;
   }
 
-  public toPOJO(): Record<string, unknown> {
+  public toPOJO(): Like {
     return {
       id: this.id,
       postId: this.postId,

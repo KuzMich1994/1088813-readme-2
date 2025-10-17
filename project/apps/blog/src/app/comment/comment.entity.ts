@@ -1,7 +1,7 @@
 import { Entity } from '@project/core';
 import { Comment } from '@project/types';
 
-export class CommentEntity implements Comment, Entity<string> {
+export class CommentEntity implements Comment, Entity<string, Comment> {
   id?: string;
   text: string;
   createdAt: Date;
@@ -26,7 +26,7 @@ export class CommentEntity implements Comment, Entity<string> {
     this.userId = data.userId;
   }
 
-  public toPOJO(): Record<string, unknown> {
+  public toPOJO(): Comment {
     return {
       id: this.id,
       text: this.text,
@@ -35,5 +35,9 @@ export class CommentEntity implements Comment, Entity<string> {
       postId: this.postId,
       userId: this.userId,
     };
+  }
+
+  static fromObject(data: Comment) {
+    return new CommentEntity(data);
   }
 }
